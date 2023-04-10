@@ -6,6 +6,10 @@ test('create new order', async () => {
   const order = await createOrder({
     customerId: 'customer-fake-id',
     amount: 1800
+  }, {
+    create(data) {
+      console.log('ENGANEI O CREATE ORDER', data)
+    }
   })
 
   assert.ok(order.id)

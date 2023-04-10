@@ -1,11 +1,9 @@
 import { transport } from './mail/transport.js'
-import { OrdersRepository } from './repositories/orders-repository.js'
 
-export async function createOrder(data) {
+export async function createOrder(data, ordersRepository) {
   const { customerId, amount } = data
   const isPriority = amount > 3000
 
-  const ordersRepository = new OrdersRepository()
 
   const order = await ordersRepository.create({
     customerId, isPriority, amount
