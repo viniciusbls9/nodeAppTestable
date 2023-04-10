@@ -1,26 +1,15 @@
-import { randomUUID } from 'node:crypto'
-
-import { client } from './database/client.js'
 import { transport } from './mail/transport.js'
+import { OrdersRepository } from './repositories/orders-repository.js'
 
 export async function createOrder(data) {
   const { customerId, amount } = data
-
-  const orderId = randomUUID()
   const isPriority = amount > 3000
 
-  const command = await client.query(/* SQL */`
-    INSERT INTO "orders" (id, customer_id, priority, amount)
-    VALUES ($1, $2, $3, $4)
-    RETURNING *
-  `, [
-    orderId,
-    customerId,
-    isPriority,
-    amount,
-  ])
+  const ordersRepository = new OrdersRepository()
 
-  const order = command.rows[0]
+  const order = await ordersRepository.create({
+    customerId, isPriority, amount
+  })
 
   const amountFormatted = new Intl.NumberFormat("en-US", { 
     style: "currency", 
