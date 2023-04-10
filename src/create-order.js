@@ -29,12 +29,12 @@ export async function createOrder(data) {
 
   await transport.sendMail({
     from: {
-      name: 'Diego Fernandes',
-      address: 'diego@rocketseat.com.br',
+      name: 'Vinicius Benedito',
+      address: 'beneditoloura@gmail.com',
     },
     to: {
-      name: 'Diego Fernandes',
-      address: 'diego@rocketseat.com.br',
+      name: 'Vinicius Benedito',
+      address: 'beneditoloura@gmail.com',
     },
     subject: `New order #${order.id}`,
     html: `<strong>New order:</strong> ${order.id} with amount of ${amountFormatted}`
